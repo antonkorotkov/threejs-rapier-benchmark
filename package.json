@@ -1,0 +1,21 @@
+{
+  "name": "threejs-rapier-benchmark",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "vite": "^5.3.3",
+    "vite-plugin-restart": "^0.4.1",
+    "vite-plugin-wasm": "^3.4.1"
+  },
+  "dependencies": {
+    "@dimforge/rapier3d": "^0.14.0",
+    "lil-gui": "^0.19.2",
+    "stats.js": "^0.17.0",
+    "three": "^0.166.1"
+  }
+}

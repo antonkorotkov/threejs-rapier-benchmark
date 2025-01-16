@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Three.js + Rapier.js Performance Experiment</title>
+		<link rel="stylesheet" href="./style.css" />
+	</head>
+	<body>
+		<canvas class="webgl"></canvas>
+		<div id="loadingBarContainer">
+			<div id="loadingBar">Loading...</div>
+		</div>
+		<style>
+			#loadingBarContainer {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				width: 50%;
+				height: 5px;
+				background: lightgray;
+				transform: translate(-50%, -50%);
+			}
+			#loadingBar {
+				height: 100%;
+				width: 0;
+				background: green;
+                color: white;
+			}
+		</style>
+		<script type="module" src="./script.js"></script>
+	</body>
+</html>
