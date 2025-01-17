@@ -73,11 +73,16 @@ const modelLoader = new GLTFLoader(loadingManager);
 const textureLoader = new THREE.TextureLoader(loadingManager);
 const cubeTextureLoader = new THREE.CubeTextureLoader(loadingManager);
 
-modelLoader.load('./models/coin/coin2.glb', model => {
+modelLoader.load('./models/coin/model.glb', model => {
     coinModel = model.scene;
-    coinModel.scale.set(0.5, 0.5, 0.5)
+    coinModel.scale.set(0.5, 0.5, 0.5);
+
+    const box = new THREE.Box3().setFromObject(coinModel);
+    const center = box.getCenter(new THREE.Vector3());
+    coinModel.position.sub(center);
+
     coinModel.traverse((node) => {
-        if (node.isMesh) {
+        if (node.userData.name?.includes('Cylinder')) {
             node.castShadow = true;
         }
     });
@@ -126,7 +131,7 @@ table.receiveShadow = true;
 table.rotation.x = -Math.PI * 0.5;
 scene.add(table);
 
-const ambientLight = new THREE.AmbientLight(0xffffff, 5);
+const ambientLight = new THREE.AmbientLight(0xffffff, 10);
 scene.add(ambientLight);
 
 const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
@@ -139,6 +144,14 @@ directionalLight.shadow.camera.right = 7;
 directionalLight.shadow.camera.bottom = -7;
 directionalLight.position.set(3.5, 5, -5);
 scene.add(directionalLight);
+
+const directionalLight2 = new THREE.DirectionalLight(0xffffff, 1);
+directionalLight2.position.set(5, 5, 5);
+scene.add(directionalLight2);
+
+const directionalLight3 = new THREE.DirectionalLight(0xffffff, 1);
+directionalLight3.position.set(-5, 5, 5);
+scene.add(directionalLight3);
 
 window.addEventListener('resize', () => {
     sizes.width = window.innerWidth;
@@ -183,7 +196,7 @@ const createCoin = position => {
     const rigidBody = world.createRigidBody(rigidBodyDesc);
     mesh.quaternion.copy(rigidBody.rotation());
 
-    const colliderDesc = RAPIER.ColliderDesc.cylinder(0.117 / 4, 0.5)
+    const colliderDesc = RAPIER.ColliderDesc.cylinder(0.16 / 4, 0.5)
         .setRestitution(.5)
         .setFriction(.5);
 
