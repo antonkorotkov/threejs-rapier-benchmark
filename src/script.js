@@ -103,6 +103,7 @@ const environmentMapTexture = cubeTextureLoader.load([
 ]);
 
 const scene = new THREE.Scene();
+scene.environmentIntensity = 5;
 scene.background = environmentMapTexture;
 scene.environment = environmentMapTexture;
 scene.rotation.y = Math.PI;
@@ -144,14 +145,6 @@ directionalLight.shadow.camera.right = 7;
 directionalLight.shadow.camera.bottom = -7;
 directionalLight.position.set(3.5, 5, -5);
 scene.add(directionalLight);
-
-const directionalLight2 = new THREE.DirectionalLight(0xffffff, 1);
-directionalLight2.position.set(5, 5, 5);
-scene.add(directionalLight2);
-
-const directionalLight3 = new THREE.DirectionalLight(0xffffff, 1);
-directionalLight3.position.set(-5, 5, 5);
-scene.add(directionalLight3);
 
 window.addEventListener('resize', () => {
     sizes.width = window.innerWidth;
