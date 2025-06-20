@@ -77,14 +77,15 @@ modelLoader.load('./models/coin/model.glb', model => {
     coinModel = model.scene;
     coinModel.scale.set(0.5, 0.5, 0.5);
 
+    coinModel.children[0].children[0].material.metalness = 0.90;
+    coinModel.children[0].children[0].material.roughness = 0.12;
+
     const box = new THREE.Box3().setFromObject(coinModel);
     const center = box.getCenter(new THREE.Vector3());
     coinModel.position.sub(center);
 
     coinModel.traverse((node) => {
-        if (node.userData.name?.includes('Cylinder')) {
-            node.castShadow = true;
-        }
+        node.castShadow = true;
     });
 });
 
@@ -165,7 +166,8 @@ const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
 
 const renderer = new THREE.WebGLRenderer({
-    canvas: canvas
+    canvas: canvas,
+    antialias: true
 });
 
 renderer.shadowMap.enabled = true;
@@ -189,7 +191,7 @@ const createCoin = position => {
     const rigidBody = world.createRigidBody(rigidBodyDesc);
     mesh.quaternion.copy(rigidBody.rotation());
 
-    const colliderDesc = RAPIER.ColliderDesc.cylinder(0.16 / 4, 0.5)
+    const colliderDesc = RAPIER.ColliderDesc.cylinder(0.12 / 4, 0.5)
         .setRestitution(.5)
         .setFriction(.5);
 
